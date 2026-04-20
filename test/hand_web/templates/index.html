@@ -2,10 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Air Canvas Pro</title>
+
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 🎥 FULLSCREEN VIDEO */
+        #video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            display: block;
+            z-index: 1;
+        }
+
+        /* 🧠 TOP OVERLAY */
+        .overlay {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+
+            padding: 10px 20px;
+            border-radius: 12px;
+
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+
+            color: white;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        }
+
+        /* ✨ SMALL HELP TEXT */
+        .hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+    </style>
 </head>
+
 <body>
-    <h3>its working</h3>
+
+    <!-- 🎥 CAMERA STREAM -->
+    <img id="video" src="{% url 'video_feed' %}" />
+
+    <!-- 🧠 UI INSTRUCTIONS -->
+    <div class="overlay">
+        ✋ Hover to Select • ☝️ Draw • 🧽 Erase
+    </div>
+
+    <!-- 💡 HINT -->
+    <div class="hint">
+        Click anywhere to enter fullscreen • Press ESC to exit
+    </div>
+
+    <!-- 🚀 FULLSCREEN SCRIPT -->
+    <script>
+        document.body.addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            }
+        });
+    </script>
+
 </body>
 </html>
